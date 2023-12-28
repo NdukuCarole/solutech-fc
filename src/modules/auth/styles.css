@@ -1,0 +1,58 @@
+
+.divider-color {
+    color: #9b9c9e;
+  }
+  
+  .login-card {
+    background-color: #81975e;
+  }
+  
+  .login-btn {
+    background-color: yellow;
+  }
+
+  
+  .list-item {
+    color: white;
+  }
+  
+.full-page-container {
+    height: 100vh;
+    width: 100%;
+    background: url("../../assets/book.png");
+    background-size: cover;
+    /* box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.6); */
+    /* align-items: center;
+    justify-content: center;
+    text-align: center; */
+    
+  }
+
+ 
+  
+  .card {
+    background: #d1cfd5;
+    justify-content: center;
+    align-items: center;
+    font-family: "Work Sans", sans-serif;
+    /* top: 50%; */
+  }
+  
+  .head-text {
+    font-size: 16px;
+    font-weight: 800;
+  
+    font-family: "Times New Roman", Times, serif;
+    color: #1e1e2f;
+  }
+  
+  .text {
+    font-size: 14px;
+    --font-family-sans-serif: BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+  
+    color: #1e1e2f;
+  }

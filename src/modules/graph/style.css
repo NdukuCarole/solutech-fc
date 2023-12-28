@@ -1,0 +1,708 @@
+.chat-column {
+  background-color: black;
+  overflow: hidden;
+  /* height: 90%; */
+  /* overflow-y: hidden; */
+}
+.test {
+  overflow: hidden;
+  /* overflow-y: hidden;
+  overflow-x: hidden; */
+  /* height: 62vh; */
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* Fallback for other browsers */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.small-chat-column {
+  background-color: black;
+  height: fit-content;
+  overflow: scroll;
+  width: fit-content;
+}
+
+.user-name {
+  font-weight: 500;
+  font-size: 12px;
+  color: #b1b7bd;
+  font-family: Roboto, sans-serif;
+}
+
+.small-user-name {
+  font-weight: 500;
+  font-size: 8px;
+  color: #b1b7bd;
+  font-family: Roboto, sans-serif;
+}
+
+.time-name {
+  font-weight: 500;
+  font-family: "Noto Sans", san-serif;
+  color: #605f5f;
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+/* .allbets-row{
+  overflow-x: scroll;
+} */
+
+.message-body {
+  font-size: 10px;
+  color: white;
+  font-family: Roboto, sans-serif;
+
+  /* overflow-y: scroll; */
+
+  /* margin-left: 2px; */
+}
+.message-chip-body {
+  font-size: 10px;
+}
+
+.small-message-body {
+  font-size: 8px;
+  color: white;
+  font-family: Roboto, sans-serif;
+  /* overflow-y: scroll; */
+
+  /* margin-left: 2px; */
+}
+
+.bet-small-message-body {
+  font-size: 8px;
+  color: white;
+  font-family: Roboto, sans-serif;
+  overflow-y: scroll;
+  justify-content: center;
+  text-align: center;
+
+  /* margin-left: 2px; */
+}
+.column-align {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.num-style {
+  font-size: 12px;
+  color: #b1b7bd;
+  font-family: Roboto, sans-serif;
+  margin-left: 2px;
+}
+
+.small-num-style {
+  font-size: 8px;
+  color: #b1b7bd;
+  font-family: Roboto, sans-serif;
+  margin-left: 2px;
+}
+
+.divider {
+  border-top: 1px solid whitesmoke;
+  margin: 10px 0;
+}
+
+.custom-label-color .v-label {
+  color: whitesmoke;
+  font-size: 10px;
+}
+
+.custom-label-color input {
+  color: whitesmoke;
+  font-size: 10px;
+}
+
+.custom-label-color .v-border {
+  color: whitesmoke;
+  font-size: 10px;
+}
+
+.online-text {
+  color: white;
+  font-size: 12px;
+  margin-left: 1px;
+}
+.list-column {
+  background-color: black;
+  /* overflow: auto; */
+  height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.list-column::-webkit-scrollbar {
+  width: 5px; /* Adjust the width to make the scrollbar thin */
+}
+
+.list-column::-webkit-scrollbar-track {
+  background: transparent; /* Set the background color of the scrollbar track */
+}
+
+.list-column::-webkit-scrollbar-thumb {
+  background-color: #999; /* Set the color of the scrollbar thumb */
+}
+
+.list-column::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color of the scrollbar thumb on hover */
+}
+
+.bets-card {
+  background-color: #0e0e0e;
+
+  height: fit-content;
+  /* overflow: scroll; */
+  overflow-y: auto;
+  /* width:800px ; */
+  /* border-radius: 10px; */
+}
+
+.large-bets-card {
+  background-color: #0e0e0e;
+  overflow: hidden;
+
+  height: 220px;
+  /* width: 1000px; */
+  /* overflow: scroll; */
+  /* width:800px ; */
+  /* border-radius: 10px; */
+}
+
+.small-bets-card {
+  /* background-color: #0e0e0e; */
+  height: fit-content;
+  /* border-radius: 10px; */
+}
+.register-btn {
+  background-image: linear-gradient(to right, #2a8a30, #4ca518);
+  /* padding: 8px 15px; */
+  font-size: 13px;
+  /* border-radius: 8px; */
+  font-weight: 500;
+  color: white;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica;
+}
+
+.custom-text-field ::v-deep .v-text-field--outlined .v-text-field__outline {
+  border-color: 2px solid #28a909;
+}
+
+.custom-text-field ::v-deep .v-text-field--filled .v-text-field__slot {
+  background-color: pink !important;
+}
+.custom-text-field {
+  border-color: green !important;
+}
+
+.text-style {
+  color: white;
+  font-size: small;
+}
+.text-row {
+  background-color: white;
+  border: 2px solid #28a909;
+  height: fit-content;
+}
+.text-font-style {
+  color: white;
+  font-size: small;
+}
+
+.bet-row {
+  background-color: #1b1c1d;
+}
+
+.bet-btn {
+  background-color: #2c2d30;
+}
+
+.active-bet-btn {
+  /* background-color: #2c2d30; */
+  background-color: #28a909;
+}
+
+.bet-btn-txt {
+  color: white;
+  font-size: 10px;
+  /* color: #b1b7bd; */
+  font-family: Roboto, sans-serif;
+}
+
+.btn-div {
+  text-align: center;
+}
+
+.bet-txt {
+  color: white;
+  font-size: 12px;
+  font-family: Roboto, sans-serif;
+  align-items: end;
+}
+
+.prev-col {
+  justify-content: flex-end;
+  align-items: end;
+}
+
+.bets-text-div {
+  text-align: left;
+}
+
+.right-bets-text-div {
+  text-align: right;
+}
+
+.prev-tex {
+  color: #9ea0a3;
+  font-size: 12px;
+  font-family: Roboto, sans-serif;
+}
+
+.first-list-column {
+  background-color: #1b1c1d;
+  /* overflow: auto; */
+  height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.large-list-column {
+  background-color: #1b1c1d;
+  /* overflow: auto; */
+  height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.large-list-column::-webkit-scrollbar {
+  width: 6px; /* Adjust the width as needed */
+}
+
+.large-list-column::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Adjust the background color as needed */
+}
+
+.large-list-column::-webkit-scrollbar-thumb {
+  background-color: #888; /* Adjust the thumb color as needed */
+  border-radius: 3px; /* Adjust the border-radius as needed */
+}
+
+.large-list-column::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Adjust the thumb color on hover as needed */
+}
+
+.large-chat-list-column {
+  background-color: #1b1c1d;
+  /* overflow: auto; */
+  height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.large-chat-list-column::-webkit-scrollbar {
+  width: 6px; /* Adjust the width as needed */
+}
+
+.large-chat-list-column::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Adjust the background color as needed */
+}
+
+.large-chat-list-column::-webkit-scrollbar-thumb {
+  background-color: #888; /* Adjust the thumb color as needed */
+  border-radius: 3px; /* Adjust the border-radius as needed */
+}
+
+.large-chat-list-column::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Adjust the thumb color on hover as needed */
+}
+
+.first-chat-list-column {
+  background-color: #1b1c1d;
+  /* overflow: auto; */
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Customize the scrollbar */
+.first-chat-list-column::-webkit-scrollbar {
+  width: 6px; /* Adjust the width as needed */
+}
+
+.first-chat-list-column::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Adjust the background color as needed */
+}
+
+.first-chat-list-column::-webkit-scrollbar-thumb {
+  background-color: #888; /* Adjust the thumb color as needed */
+  border-radius: 3px; /* Adjust the border-radius as needed */
+}
+
+.first-chat-list-column::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Adjust the thumb color on hover as needed */
+}
+
+/* Customize the scrollbar */
+.first-list-column::-webkit-scrollbar {
+  width: 6px; /* Adjust the width as needed */
+}
+
+.first-list-column::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Adjust the background color as needed */
+}
+
+.first-list-column::-webkit-scrollbar-thumb {
+  background-color: #888; /* Adjust the thumb color as needed */
+  border-radius: 3px; /* Adjust the border-radius as needed */
+}
+
+.first-list-column::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Adjust the thumb color on hover as needed */
+}
+.first-col-text {
+  color: #7b7b7b;
+  font-size: 11px;
+  font-family: Roboto, sans-serif;
+}
+
+.list-row {
+  border: 1px solid #427f00;
+  border-radius: 5px;
+  height: 30px;
+  background-color: #123405;
+  opacity: 0.8;
+  color: white;
+}
+
+.lost-list-row {
+  border: 1px solid #427f00;
+  border-radius: 5px;
+  height: 30px;
+  background-color: #ba5353;
+  opacity: 0.8;
+  color: white;
+}
+
+.chip-color {
+  /* background-color: #00000080; */
+  display: inline-flex; /* Use flexbox for responsiveness */
+  align-items: center; /* Center vertically within the chip */
+  /* padding: 8px 16px; */
+}
+
+.crash-number {
+  font-weight: 600;
+}
+.small-crash-number {
+  font-weight: 600;
+  color: green;
+}
+
+.graph-card {
+  background-image: url("../../../public/bg.gif");
+  height: 500px;
+  background-color: #0e0e0e;
+}
+
+.crash-points-card {
+  /* height: 500px; */
+  background-color: #0e0e0e;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.pass-text {
+  font-size: 12px;
+}
+.small-graph-card {
+  background-image: url("../../../public/bg.gif");
+  height: 300px;
+  background-color: #0e0e0e;
+}
+
+.graph-col {
+  background-color: #0e0e0e;
+  height: 520px;
+}
+
+.small-graph-col {
+  background-image: url("../../../public/bg.gif");
+  background-color: #0e0e0e;
+  height: 220px;
+  overflow: hidden;
+}
+
+.small-bet-col {
+  background-color: #0e0e0e;
+  /* height: 450px; */
+  height: fit-content;
+  overflow: hidden;
+}
+.crash-card {
+  background-image: url("../../../public/light.gif");
+  height: 500px;
+}
+
+.loader-card {
+  height: 500px;
+  /* background-color: #1b1c1d; */
+}
+.small-loader-card {
+  height: 300px;
+
+  /* background-color: #1b1c1d; */
+}
+.bet-card {
+  background-color: white;
+  height: 200px;
+}
+
+.amount-bet {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+}
+
+.add-bet-btn {
+  background-color: black;
+}
+
+.chip-bet-btn {
+  background-color: #1b1b1e;
+  width: 70px;
+}
+
+.small -chip-bet-btn {
+  background-color: #1b1b1e;
+  width: 40px;
+}
+
+.green-card {
+  border: solid 1px #b2f2a3;
+  background-color: #28a909;
+  box-shadow: inset 0 1px 1px #ffffff80;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  /* height: 600px; */
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+.orange-card {
+  border: solid 1px #b2f2a3;
+  background-color: #626561;
+  box-shadow: inset 0 1px 1px #ffffff80;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  /* height: 600px; */
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+.mulitplier-part {
+  border-radius: 5px;
+}
+
+.large-button {
+  width: 200px; /* Increase the width as needed */
+  height: 100px; /* Increase the height as needed */
+  line-height: 60px; /* Set line-height to match button height */
+  font-size: 18px; /* Increase the font size as needed */
+}
+
+/* .button-font{
+  font-size: 20px;
+  text-align: center;
+  
+} */
+
+.main-row {
+  justify-content: center;
+  display: flex;
+}
+
+.main-column {
+  background-color: #2c2d30;
+  /* height: 60px; */
+  /* width: ; */
+  border-radius: 10px;
+}
+
+.betting-text {
+  /* width: calc(100% - 950px);
+  height: calc(100% - 100px); */
+  font-size: 58px;
+  color: rgb(235, 228, 228);
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  z-index: 2;
+  font-family: "Noto Sans", san-serif;
+  font-weight: 900;
+}
+
+.main-toggle-row {
+  justify-content: center;
+  display: flex;
+  background-color: black;
+}
+
+.crash-page-cont {
+  background-color: #24262b;
+  overflow: hidden;
+  /* height: 92vh; */
+
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+/* Customize the scrollbar */
+.crash-page-cont::-webkit-scrollbar {
+  width: 6px;
+}
+
+.crash-page-cont::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.crash-page-cont::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 3px;
+}
+
+.crash-page-cont::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.main-row-cont {
+  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.start-text {
+  font-size: 58px;
+  color: rgb(235, 228, 228);
+  position: absolute;
+  top: 30%;
+  left: 13%;
+  transform: translate(50%, 50%);
+
+  z-index: 2;
+  font-family: "Noto Sans", san-serif;
+  font-weight: 900;
+}
+
+.small-start-text {
+  font-size: 28px;
+  color: rgb(235, 228, 228);
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  transform: translate(50%, 50%);
+
+  z-index: 2;
+  font-family: "Noto Sans", san-serif;
+  font-weight: 900;
+}
+
+.multi-text {
+  font-size: 80px;
+}
+
+.small-multi-text {
+  font-size: 50px;
+}
+
+@keyframes riseAndFly {
+  0% {
+    bottom: -50px;
+  }
+  70% {
+    bottom: 80%;
+  }
+  100% {
+    left: 100%;
+    bottom: 80%;
+  }
+}
+.toggle-btn {
+  background-color: #1b1c1d;
+}
+
+/* .def-counter {
+  background-image: url("../../../public/launch2.gif");
+  height: 800px;
+} */
+
+.review-btn {
+  background-color: #0e0e0e;
+  /* padding: 8px 15px; */
+  font-size: 13px;
+  /* border-radius: 8px; */
+  font-weight: 500;
+  color: white;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica;
+}
+
+.red-outline {
+  border: 1px solid #28a909;
+  width: 300px;
+  height: 30px;
+  color: white;
+  border-radius: 3px;
+  text-align: center;
+  background-color: #2c2d30;
+}
+.red-outline:focus {
+  border: 1px solid #28a909; /* Change border color on focus */
+}
+
+.clear-button {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  color: green;
+  cursor: pointer;
+}
+
+.input-container {
+  position: relative;
+}
+.new-outline {
+  /* border: 1px solid #28a909; */
+  border: none;
+  width: 60px;
+  height: 28px;
+  color: white;
+  /* border-radius: 20px; */
+  /* overflow-y: hidden;
+  overflow-x: hidden;
+  overflow: hidden; */
+  text-align: center !important;
+  /* background-color: #2c2d30; */
+}
+
+.new-outline:focus {
+  outline: none;
+  box-shadow: none;
+  border: none !important;
+}
+
+/* .new-outline input {
+  text-align: center;
+} */
