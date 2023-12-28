@@ -28,10 +28,26 @@
       <v-divider class="mt-1"></v-divider>
 
       <v-list nav class="pa-0 mt-3">
-        <v-list-item-group v-model="selectedItem">
+        <v-list-item-group v-model="selectedItem" v-if="isAdmin">
           <v-list-item
             class="nav-link"
             v-for="item in navLinks"
+            :key="item.title"
+            :to="item.to"
+            :href="item.href"
+            :disabled="item.disabled"
+          >
+            <v-col>
+              <v-list-item-icon class="ml-0">
+                <v-icon small>{{ item.icon }}</v-icon> </v-list-item-icon
+              ><span class="ml-6">{{ item.title }}</span></v-col
+            >
+          </v-list-item>
+        </v-list-item-group>
+        <v-list-item-group v-model="selectedItem" v-if="!isAdmin">
+          <v-list-item
+            class="nav-link"
+            v-for="item in subnavLinks"
             :key="item.title"
             :to="item.to"
             :href="item.href"
@@ -99,7 +115,6 @@ export default {
       required: [(value) => !!value || "Required."],
     },
 
-   
     mini: false,
     selectedItem: 0,
 
@@ -127,9 +142,12 @@ export default {
     userDetails() {
       return JSON.parse(AuthService.user);
     },
-   
+
     alertMessage() {
       return this.$store.getters["auth/authGetters"]("alert");
+    },
+    isAdmin() {
+      return JSON.parse(AuthService.user).id == 1 ? true : false;
     },
     navLinks() {
       return [
@@ -149,6 +167,16 @@ export default {
           to: "/dashboard/loans",
           title: "Book Loans",
           icon: "mdi-book",
+          disabled: false,
+        },
+      ];
+    },
+    subnavLinks() {
+      return [
+        {
+          to: "/dashboard/books",
+          title: "Books",
+          icon: "mdi-account",
           disabled: false,
         },
       ];

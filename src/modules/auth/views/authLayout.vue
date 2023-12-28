@@ -24,11 +24,17 @@ export default {
   // components: { AppFooter, Spinner },
   beforeRouteEnter(to, from, next) {
     next((v) => {
-      if (AuthService.check()) {
+      if (AuthService.check() && JSON.parse(AuthService.user).id == 1) {
         console.log('test')
         v.$router.replace({
           name: "mainDashboard",
         });
+      } else{
+        if(AuthService.check()){
+          v.$router.replace({
+          name: "BooksPage",
+        });
+        }
       }
     });
   },

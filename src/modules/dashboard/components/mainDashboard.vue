@@ -54,7 +54,7 @@
                       item-title="name"
                       item-value="id"
                       v-model="editedItem.is_admin"
-                      :rules="rules.required"
+                     
                     />
                   </v-col>
                 </v-row>
@@ -159,7 +159,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Edit User" : "New User";
+      return this.editedIndex === -1 ? "Add User" : "Edit User";
     },
     Users() {
       return this.$store.getters["dashboard/dashboardGetters"]("allUsers");

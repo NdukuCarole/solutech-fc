@@ -151,6 +151,66 @@ const bookModule = {
           console.log(err);
         });
     },
+    returnBook: ({ commit, dispatch }, data) => {
+      call("post", constants.RETURN_BOOK, data)
+        .then((res) => {
+          if (res.data.status_code === 1000) {
+            dispatch("getAllLoans");
+            commit("SET_ALERT", {
+              status: "success",
+              message: res.data.status_desc,
+            });
+          } else {
+            commit("SET_ALERT", {
+              status: "error",
+              message: res.data.status_desc,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    extendLoan: ({ commit, dispatch }, data) => {
+      call("post", constants.EXTEND_LOAN, data)
+        .then((res) => {
+          if (res.data.status_code === 1000) {
+            dispatch("getAllLoans");
+            commit("SET_ALERT", {
+              status: "success",
+              message: res.data.status_desc,
+            });
+          } else {
+            commit("SET_ALERT", {
+              status: "error",
+              message: res.data.status_desc,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    recieveBook: ({ commit, dispatch }, data) => {
+      call("post", constants.RECIEVE_BOOK, data)
+        .then((res) => {
+          if (res.data.status_code === 1000) {
+            dispatch("getAllLoans");
+            commit("SET_ALERT", {
+              status: "success",
+              message: res.data.status_desc,
+            });
+          } else {
+            commit("SET_ALERT", {
+              status: "error",
+              message: res.data.status_desc,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 

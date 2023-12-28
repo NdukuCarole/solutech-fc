@@ -145,17 +145,27 @@
       >
       <p></p>
       <v-btn
-      @click="Return(item)"
+        @click="Return(item)"
         class="ml-3 mt-3"
         color="green-darken-1"
         size="x-small"
         variant="flat"
-        v-if="item.status == 'approved' && checkifExistsOnLoans(item)"
+        v-if="item.status == 'approved' && checkifExistsOnLoans(item) && !isAdmin"
         >Return</v-btn
       >
 
       <v-btn
-      @click="Return(item)"
+        @click="Recieve(item)"
+        class="ml-3 mt-3"
+        color="green-darken-1"
+        size="x-small"
+        variant="flat"
+        v-if="item.status == 'approved' && isAdmin"
+        >Recieve</v-btn
+      >
+
+      <v-btn
+        @click="Extend(item)"
         class="ml-3 mt-3"
         color="green-darken-1"
         size="x-small"
@@ -403,15 +413,53 @@ export default {
       const currentDate = new Date();
 
       const isMatch = this.Loans.some((loan) => {
-       
         return (
           val.id === loan.book_id &&
           loggedInUserId === loan.user_id &&
           new Date(loan.due_date) < currentDate
         );
       });
-      console.log(isMatch)
+      console.log(isMatch);
       return isMatch;
+    },
+
+    Return(val) {
+      const loggedInUserId = JSON.parse(AuthService.user).id;
+
+      const matchingLoan = this.Loans.find((loan) => {
+        return val.id === loan.book_id && loggedInUserId === loan.user_id;
+      });
+
+      const data = {
+        loan_id: matchingLoan.id,
+      };
+
+      this.$store.dispatch("book/returnLoan", data);
+    },
+
+    Extend(val) {
+      const loggedInUserId = JSON.parse(AuthService.user).id;
+
+      const matchingLoan = this.Loans.find((loan) => {
+        return val.id === loan.book_id && loggedInUserId === loan.user_id;
+      });
+
+      const data = {
+        loan_id: matchingLoan.id,
+      };
+
+      this.$store.dispatch("book/extendLoan", data);
+    },
+    Recieve(val) {
+      const matchingLoan = this.Loans.find((loan) => {
+        return val.id === loan.book_id;
+      });
+
+      const data = {
+        loan_id: matchingLoan.id,
+      };
+
+      this.$store.dispatch("book/recieveBook", data);
     },
   },
 };
