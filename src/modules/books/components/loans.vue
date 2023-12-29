@@ -69,7 +69,7 @@ export default {
       { title: "sub_category", key: "sub_category" },
       { title: "extended", key: "extended" },
       { title: "penalty_amount", key: "penalty_amount" },
-      { title: "penalty_amount", key: "penalty_amount" },
+      { title: "penalty_status", key: "penalty_status" },
       { title: "status", key: "status" },
 
       { title: "Actions", key: "actions", sortable: false },

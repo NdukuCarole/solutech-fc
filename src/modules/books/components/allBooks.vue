@@ -98,7 +98,7 @@
               <v-btn
                 color="blue-darken-1"
                 variant="text"
-                @click="newBook ? saveBook : editBook"
+                @click="saveBook()"
               >
                 Save
               </v-btn>
