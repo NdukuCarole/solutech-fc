@@ -1,5 +1,6 @@
 import call from "@/service/http";
 import constants from "./dashboardConstants";
+// import { EventBus } from "@/utils/eventBus";
 
 const dashboardModule = {
   namespaced: true,
@@ -30,7 +31,6 @@ const dashboardModule = {
     getAllUsers: ({ commit }) => {
       call("get", constants.GET_USERS)
         .then((res) => {
-      
           if (res.data.status_code === 1000) {
             commit("MUTATE", { state: "allUsers", value: res.data.data });
           } else {
@@ -47,6 +47,48 @@ const dashboardModule = {
         .then((res) => {
           if (res.data.status_code === 1000) {
             dispatch("getAllUsers");
+            commit("SET_ALERT", {
+              status: "success",
+              message: res.data.status_desc,
+            });
+          } else {
+            commit("SET_ALERT", {
+              status: "error",
+              message: res.data.status_desc,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    editUser: ({ commit, dispatch }, data) => {
+      call("put", `/users/${data.id}`, data)
+        .then((res) => {
+          if (res.data.status_code === 1000) {
+            dispatch("getAllUsers");
+
+            commit("SET_ALERT", {
+              status: "success",
+              message: res.data.status_desc,
+            });
+          } else {
+            commit("SET_ALERT", {
+              status: "error",
+              message: res.data.status_desc,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteUser: ({ commit, dispatch }, data) => {
+      call("delete", `/delete-users/${data.id}`, data)
+        .then((res) => {
+          if (res.data.status_code === 1000) {
+            dispatch("getAllUsers");
+
             commit("SET_ALERT", {
               status: "success",
               message: res.data.status_desc,

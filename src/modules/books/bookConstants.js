@@ -8,5 +8,6 @@ export default {
   DECLINE_LOAN: "/decline-loan",
   RETURN_BOOK:"/return-book",
   EXTEND_LOAN:"/extend-loan",
-  RECIEVE_BOOK:"/receive-book"
+  RECIEVE_BOOK:"/receive-book",
+  // EDIT_BOOK:`/books/${id}`
 };

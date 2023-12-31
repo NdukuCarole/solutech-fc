@@ -22,51 +22,60 @@
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
             </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="editedItem.email"
-                      label="Email"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="editedItem.password"
-                      label="Password"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-select
-                      dense
-                      :items="items"
-                      class="mx-4"
-                      outlined
-                      label="Role"
-                      item-title="name"
-                      item-value="id"
-                      v-model="editedItem.is_admin"
-                     
-                    />
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+            <v-form v-model="isValid" ref="userForm" v-on:submit.prevent>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.name"
+                        label="Name"
+                        :rules="[rules.required]"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.email"
+                        label="Email"
+                        :rules="[rules.required, rules.email]"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.password"
+                        label="Password"
+                        placeholder="Password should be atleast 8 characters"
+                        :rules="[rules.required, rules.minLength(8)]"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-select
+                        dense
+                        :items="items"
+                        class="mx-4"
+                        outlined
+                        label="Role"
+                        item-title="name"
+                        item-value="id"
+                        v-model="editedItem.is_admin"
+                       
+                      />
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+            </v-form>
 
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="close">
                 Cancel
               </v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click=" newUser ? saveUser() : editUser()">
+              <v-btn
+                color="blue-darken-1"
+                variant="text"
+                @click="newUser ? saveUser() : editUser()"
+              >
                 Save
               </v-btn>
             </v-card-actions>
@@ -111,12 +120,14 @@
   </v-data-table>
 </template>
 <script>
+import { inject } from "vue";
 export default {
   name: "DashboardPage",
   data: () => ({
     dialog: false,
     dialogDelete: false,
-    newUser:false,
+    newUser: false,
+    isValid: false,
     headers: [
       {
         title: "Name",
@@ -145,10 +156,13 @@ export default {
       name: "",
       password: "",
       email: "",
-      is_admin: 0
+      is_admin: 0,
     },
     rules: {
-      required: [(value) => !!value || "Required."],
+      required: (value) => !!value || "This field is required.",
+      email: (value) => /.+@.+\..+/.test(value) || "E-mail must be valid.",
+      minLength: (min) => (value) =>
+        (value && value.length >= min) || `Min ${min} characters`,
     },
   }),
   beforeRouteEnter(to, from, next) {
@@ -175,12 +189,9 @@ export default {
     },
   },
 
- 
-
   methods: {
-   
     addNewUser() {
-      this.newUser = true
+      this.newUser = true;
       this.dialog = true;
     },
 
@@ -188,10 +199,16 @@ export default {
       this.editedIndex = this.desserts.indexOf(item);
       console.log(this.editedIndex);
       this.editedItem = Object.assign({}, item);
-      this.newUser =false
-
+      this.newUser = false;
 
       this.dialog = true;
+    },
+    editUser() {
+      if (!this.isValid) {
+        this.$refs.userForm.validate();
+      } else {
+        this.$store.dispatch("dashboard/editUser", this.editedItem);
+      }
     },
 
     deleteItem(item) {
@@ -202,7 +219,9 @@ export default {
 
     deleteItemConfirm() {
       this.desserts.splice(this.editedIndex, 1);
+      this.$store.dispatch("dashboard/deleteUser", this.editedItem);
       this.closeDelete();
+      
     },
 
     close() {
@@ -210,6 +229,7 @@ export default {
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
+       
       });
     },
 
@@ -222,9 +242,23 @@ export default {
     },
 
     saveUser() {
-      this.$store.dispatch("dashboard/registerUser", this.editedItem);
-      this.close();
+      if (!this.isValid) {
+        this.$refs.userForm.validate();
+      } else {
+        this.$store.dispatch("dashboard/registerUser", this.editedItem);
+        this.close();
+      }
     },
+  },
+  mounted() {
+    const eventBus = inject("eventBus");
+
+    if (eventBus) {
+      eventBus.$on("openDialog", (message) => {
+        console.log("Received openDialog event with message:", message);
+        // Handle the event and open the dialog
+      });
+    }
   },
 };
 </script>

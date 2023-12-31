@@ -98,7 +98,7 @@
               <v-btn
                 color="blue-darken-1"
                 variant="text"
-                @click="saveBook()"
+                @click="newBook ? saveBook() : editBook()"
               >
                 Save
               </v-btn>
@@ -150,7 +150,9 @@
         color="green-darken-1"
         size="x-small"
         variant="flat"
-        v-if="item.status == 'approved' && checkifExistsOnLoans(item) && !isAdmin"
+        v-if="
+          item.status == 'approved' && checkifExistsOnLoans(item) && !isAdmin
+        "
         >Return</v-btn
       >
 
@@ -209,9 +211,21 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <v-snackbar v-model="snackbar">
+    Thanks for your feedback
+
+    <template v-slot:action="{ attrs }">
+      <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 <script>
 import AuthService from "../../auth/views/authService";
+// import { EventBus } from "@/utils/eventBus";
+
+import { inject } from "vue";
 export default {
   name: "BooksPage",
   beforeRouteEnter(to, from, next) {
@@ -225,7 +239,7 @@ export default {
     dateDialog: false,
     dialogDelete: false,
     newBook: false,
-
+    snackbar: false,
     headers: [
       { title: "image", key: "image" },
       {
@@ -254,6 +268,7 @@ export default {
     imageUrl: "",
     selectedBook: {},
     ReturnDate: null,
+    bookId: 0,
     formData: {
       name: "",
       publisher: "",
@@ -300,6 +315,16 @@ export default {
       val || this.closeDelete();
     },
   },
+  mounted() {
+    const eventBus = inject("eventBus");
+
+    if (eventBus) {
+      eventBus.$on("openDialog", (message) => {
+        console.log("Received openDialog event with message:", message);
+        // Handle the event and open the dialog
+      });
+    }
+  },
 
   methods: {
     addNewBook() {
@@ -317,6 +342,7 @@ export default {
       this.formData = { ...item };
       this.imageUrl = this.formData.image_url;
       console.log(this.formData);
+      this.bookId = this.formData.id;
       this.newBook = false;
       this.dialog = true;
     },
@@ -329,6 +355,8 @@ export default {
 
     deleteItemConfirm() {
       this.desserts.splice(this.editedIndex, 1);
+      console.log(this.editedIndex)
+      this.$store.dispatch("book/deleteBook", this.bookId);
       this.closeDelete();
     },
 
@@ -365,6 +393,29 @@ export default {
       Test.append("image", this.Image);
 
       this.$store.dispatch("book/addBook", Test);
+      this.close();
+    },
+    showToast() {
+      this.$toast.success("This is a success message");
+    },
+    editBook() {
+      let Test = new FormData();
+      Test.append("name", this.formData.name);
+      Test.append("id", this.formData.id);
+      Test.append("publisher", this.formData.publisher);
+      Test.append("category", this.formData.category);
+      Test.append("isbn", this.formData.isbn);
+      Test.append("sub_category", this.formData.sub_category);
+      Test.append("description", this.formData.description);
+      Test.append("pages", this.formData.pages);
+      Test.append("image", this.Image);
+
+      const newapayload = {
+        field1: Test,
+        field2: this.formData.id,
+      };
+
+      this.$store.dispatch("book/editBook", newapayload);
       this.close();
     },
 

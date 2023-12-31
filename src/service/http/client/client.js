@@ -13,7 +13,7 @@ const authInterceptor = (config) => {
     config.headers["Content-Type"] = "application/json";
     config.headers.Authorization = `Bearer ${AuthService.token}`;
   } else {
-    if (config.url === "/add-book") {
+    if (config.url === "/add-book" || config.url.includes("books-id/")) {
       config.headers["Content-Type"] = "multipart/form-data";
       config.headers.Authorization = `Bearer ${AuthService.token}`;
     } else {

@@ -17,6 +17,7 @@
     "vue-chartjs": "^5.2.0",
     "vue-material-design-icons": "^5.2.0",
     "vue-router": "^4.2.0",
+    "vue-toastification": "^1.7.14",
     "vue3-toastify": "^0.1.11",
     "vuetify": "^3.2.4",
     "vuex": "^4.1.0"

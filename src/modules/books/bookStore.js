@@ -1,5 +1,6 @@
 import call from "@/service/http";
 import constants from "./bookConstants";
+import { EventBus } from "@/utils/eventBus";
 
 const bookModule = {
   namespaced: true,
@@ -63,11 +64,37 @@ const bookModule = {
           console.log(err);
         });
     },
+    editBook: ({ commit, dispatch }, data) => {
+      // console.log(payload)
+      call("put", `/books-id/${data.field2}`, data.field1)
+        .then((res) => {
+          if (res.data.status_code === 1000) {
+            dispatch("getAllBooks");
+            commit("SET_ALERT", {
+              status: "success",
+              message: res.data.message,
+            });
+          } else {
+            commit("SET_ALERT", {
+              status: "error",
+              message: res.data.message,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    
     borrowBook: ({ commit, dispatch }, data) => {
       call("post", constants.BORROW_BOOK, data)
         .then((res) => {
           if (res.data.status_code === 1000) {
             dispatch("getAllBooks");
+            EventBus.$emit(
+              "openDialog",
+              "Something Went Wrong. Please Try again Later"
+            );
             commit("SET_ALERT", {
               status: "success",
               message: res.data.status_desc,
@@ -196,6 +223,27 @@ const bookModule = {
         .then((res) => {
           if (res.data.status_code === 1000) {
             dispatch("getAllLoans");
+            commit("SET_ALERT", {
+              status: "success",
+              message: res.data.message,
+            });
+          } else {
+            commit("SET_ALERT", {
+              status: "error",
+              message: res.data.status_desc,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteBook: ({ commit, dispatch }, data) => {
+      call("delete", `/delete-book/${data}`)
+        .then((res) => {
+          if (res.data.status_code === 1000) {
+            dispatch("getAllBooks");
+
             commit("SET_ALERT", {
               status: "success",
               message: res.data.status_desc,
