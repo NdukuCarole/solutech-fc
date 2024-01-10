@@ -183,6 +183,7 @@ const bookModule = {
         .then((res) => {
           if (res.data.status_code === 1000) {
             dispatch("getAllLoans");
+            dispatch("getAllBooks");
             commit("SET_ALERT", {
               status: "success",
               message: res.data.status_desc,
@@ -203,6 +204,7 @@ const bookModule = {
         .then((res) => {
           if (res.data.status_code === 1000) {
             dispatch("getAllLoans");
+            dispatch("getAllBooks");
             commit("SET_ALERT", {
               status: "success",
               message: res.data.status_desc,
@@ -223,6 +225,7 @@ const bookModule = {
         .then((res) => {
           if (res.data.status_code === 1000) {
             dispatch("getAllLoans");
+            dispatch("getAllBooks");
             commit("SET_ALERT", {
               status: "success",
               message: res.data.message,

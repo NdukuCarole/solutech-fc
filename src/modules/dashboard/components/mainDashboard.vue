@@ -208,6 +208,7 @@ export default {
         this.$refs.userForm.validate();
       } else {
         this.$store.dispatch("dashboard/editUser", this.editedItem);
+        this.close();
       }
     },
 

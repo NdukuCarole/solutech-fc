@@ -147,7 +147,7 @@ export default {
       return this.$store.getters["auth/authGetters"]("alert");
     },
     isAdmin() {
-      return JSON.parse(AuthService.user).id == 1 ? true : false;
+      return JSON.parse(AuthService.user).is_admin === 1 ? true : false;
     },
     navLinks() {
       return [
@@ -175,7 +175,13 @@ export default {
       return [
         {
           to: "/dashboard/books",
-          title: "Books",
+          title: "All Books",
+          icon: "mdi-account",
+          disabled: false,
+        },
+        {
+          to: "/dashboard/yourbooks",
+          title: "Your Books",
           icon: "mdi-account",
           disabled: false,
         },

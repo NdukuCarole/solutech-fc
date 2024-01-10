@@ -1,147 +1,12 @@
 <template>
-  <v-data-table :headers="headers" :items="Books">
+  <v-data-table :headers="headers" :items="filteredBooks">
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>All Books</v-toolbar-title>
+        <v-toolbar-title>Your Borrowed Books</v-toolbar-title>
 
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-
-        <v-btn
-          v-if="isAdmin"
-          class="text-none ms-4 text-white"
-          color="blue-darken-4"
-          rounded="0"
-          variant="flat"
-          @click="addNewBook"
-        >
-          Add Book
-        </v-btn>
-
-        <v-dialog v-model="dialog" max-width="800px" persistent>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">Book</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.name"
-                      label="Name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.publisher"
-                      label="Publisher"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.isbn"
-                      label="ISBN"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.category"
-                      label="Category"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.sub_category"
-                      label="Sub Category"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.description"
-                      label="Description"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.pages"
-                      label="Pages"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-img
-                      v-if="!newBook"
-                      :src="imageUrl"
-                      height="200"
-                      contain
-                      class="d-flex flex-row justify-center mt-n2"
-                    />
-                    <v-file-input
-                      type="file"
-                      class="custom-file-input mt-2"
-                      id="customFile"
-                      ref="file"
-                      label="Image"
-                      accept="image/*"
-                      v-on:change="onImageChange"
-                    ></v-file-input>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue-darken-1" variant="text" @click="close">
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue-darken-1"
-                variant="text"
-                @click="newBook ? saveBook() : editBook()"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5"
-              >Are you sure you want to delete this item?</v-card-title
-            >
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
-                >Cancel</v-btn
-              >
-              <v-btn
-                color="blue-darken-1"
-                variant="text"
-                @click="deleteItemConfirm"
-                >OK</v-btn
-              >
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
       </v-toolbar>
-    </template>
-    <template v-slot:[`item.status`]="{ item }">
-      <!-- {{ item.status }} -->
-
-      <v-chip
-        variant="flat"
-        color="green"
-        size="x-small"
-        v-if="item.status === 'borrowed' && checkifAuthUserisTheBorrower(item)"
-      >
-        Waiting for Admin Approval
-      </v-chip>
-      <v-chip variant="flat" :color="item.status === 'borrowed' ? 'blue' : ''" size="x-small">
-        {{ item.status }}
-      </v-chip>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon size="small" class="ml-4" @click="editItem(item)" v-if="isAdmin">
@@ -156,7 +21,7 @@
         color="blue-darken-1"
         size="x-small"
         variant="flat"
-        v-if="item.status == 'Available' && !isAdmin"
+        v-if="item.status == 'Available'"
         >Borrow</v-btn
       >
       <p></p>
@@ -243,7 +108,7 @@ import AuthService from "../../auth/views/authService";
 
 import { inject } from "vue";
 export default {
-  name: "BooksPage",
+  name: "UserBooksPage",
   beforeRouteEnter(to, from, next) {
     next((v) => {
       v.$store.dispatch("book/getAllBooks");
@@ -316,10 +181,32 @@ export default {
       return this.$store.getters["book/bookGetters"]("allBooks");
     },
     isAdmin() {
-      return JSON.parse(AuthService.user).id === 1 ? true : false;
+      return JSON.parse(AuthService.user).is_admin === 1 ? true : false;
     },
     Loans() {
       return this.$store.getters["book/bookGetters"]("allLoans");
+    },
+    filteredBooks() {
+      const userLoans = this.Loans
+        ? this.Loans.filter(
+            (loan) =>
+              loan.user_id === JSON.parse(AuthService.user).id &&
+              loan.status === "approved"
+          )
+        : [];
+
+      const matchingObjects = [];
+
+      userLoans.forEach((item1) => {
+        const matchingBook = this.Books.find(
+          (item2) => item2.id === item1.book_id && item2.status === 'approved'
+        );
+        if (matchingBook) {
+          matchingObjects.push(matchingBook);
+        }
+      });
+
+      return matchingObjects;
     },
   },
 
@@ -500,7 +387,7 @@ export default {
 
       const data = {
         loan_id: matchingLoan.id,
-        book_id: matchingLoan.book_id,
+        book_id:matchingLoan.book_id
       };
 
       this.$store.dispatch("book/returnBook", data);
@@ -512,6 +399,7 @@ export default {
       const matchingLoan = this.Loans.find((loan) => {
         return val.id === loan.book_id && loggedInUserId === loan.user_id;
       });
+      console.log(matchingLoan)
 
       const data = {
         loan_id: matchingLoan.id,
@@ -526,21 +414,9 @@ export default {
 
       const data = {
         loan_id: matchingLoan.id,
-        book_id: matchingLoan.book_id,
       };
 
       this.$store.dispatch("book/recieveBook", data);
-    },
-    checkifAuthUserisTheBorrower(val) {
-      const loggedInUserId = JSON.parse(AuthService.user).id;
-      const matchingLoan = this.Loans.find((loan) => {
-        return val.id === loan.book_id && loggedInUserId === loan.user_id;
-      });
-      if (matchingLoan) {
-        return true;
-      } else {
-        return false;
-      }
     },
   },
 };

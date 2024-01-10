@@ -2,7 +2,7 @@
   <v-data-table :headers="headers" :items="Loans">
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>All Books</v-toolbar-title>
+        <v-toolbar-title>All Books Loans</v-toolbar-title>
 
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -13,6 +13,33 @@
     </template>
     <template v-slot:[`item.book_id`]="{ item }">
       {{ getBookName(item.book_id) ? getBookName(item.book_id).name : "nill" }}
+    </template>
+    <template v-slot:[`item.status`]="{ item }">
+      <!-- {{ item.status }} -->
+
+      <v-chip
+        variant="flat"
+        size="x-small"
+        color="green"
+        v-if="item.status === 'approved'"
+      >
+        {{ item.status }}
+      </v-chip>
+      <v-chip
+        variant="flat"
+        size="x-small"
+        color="red"
+        v-if="item.status === 'declined'"
+      >
+        {{ item.status }}
+      </v-chip>
+      <v-chip
+        variant="flat"
+        size="x-small"
+        v-if="item.status !== 'declined' && item.status !== 'approved'"
+      >
+        {{ item.status }}
+      </v-chip>
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
@@ -66,7 +93,6 @@ export default {
       { title: "Due date", key: "due_date" },
       { title: "Return Date", key: "return_date" },
       { title: "extension_date", key: "extension_date" },
-      { title: "sub_category", key: "sub_category" },
       { title: "extended", key: "extended" },
       { title: "penalty_amount", key: "penalty_amount" },
       { title: "penalty_status", key: "penalty_status" },
@@ -115,7 +141,7 @@ export default {
       return this.$store.getters["book/bookGetters"]("allBooks");
     },
     isAdmin() {
-      return JSON.parse(AuthService.user).id == 1 ? true : false;
+      return JSON.parse(AuthService.user).is_admin === 1 ? true : false;
     },
     Loans() {
       return this.$store.getters["book/bookGetters"]("allLoans");
